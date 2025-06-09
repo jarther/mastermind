@@ -39,10 +39,10 @@ function App({ answer = "" }) {
       if (foundIndex > -1) {
         almosts++;
         guessArray[index] = " ";
-        answerArray[foundIndex] = '-'
+        answerArray[foundIndex] = '-';
       }
       const newResults = results.slice();
-      newResults.push("bingos: " + bingos +" almosts: " + almosts);
+      newResults.push("bingos: " + bingos + " almosts: " + almosts);
       setResults(newResults);
     }
   };
