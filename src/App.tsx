@@ -1,8 +1,10 @@
 import { useState } from 'react'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
 import './App.css'
+import { GuessDisplay } from './components/GuessDisplay';
+import { ColoredPeg } from './components/ColoredPeg';
+import { UserInput } from './components/UserInput';
 
+//may want to move this into like a utils thing... 
 const GameStatus = {
   During: "during",
   Win: "win",
@@ -14,11 +16,10 @@ function App({ answer = "" }) {
   const maxGuesses = 10;
   const [remaining, setRemaining] = useState(maxGuesses);
   const [guesses, setGuesses] = useState(Array().fill(''));
-  const [nextGuess, setNextGuess] = useState('');
+  const [nextGuess, setNextGuess] = useState(Array().fill('R'));
   const [gameStatus, setGameStatus] = useState("during");
   const [results, setResults] = useState(Array().fill(''));
 
-  //todo: this assumes a letter can only appear once in the answer!!
   const checkResult = (guess: string) => {
     if (guess == answer) {
       setGameStatus(GameStatus.Win);
@@ -47,13 +48,20 @@ function App({ answer = "" }) {
     }
   };
 
+  const updateNextGuess = (index: number, letter: string) => {
+        const updatedInProgressGuess = nextGuess.slice();
+        updatedInProgressGuess[index] = letter;
+        setNextGuess(updatedInProgressGuess);
+        console.log("Letter: " + letter + " index: " + index + " In progress guess:" + updatedInProgressGuess)
+    };
+
   const handleClick = (e) => {
     const guessNumber = maxGuesses - remaining;
     const updatedGuesses = guesses.slice();
-    updatedGuesses[guessNumber] = nextGuess.toUpperCase();
+    const newGuess = "" + nextGuess[0] + nextGuess[1] + nextGuess[2] + nextGuess[3];
+    updatedGuesses[guessNumber] = newGuess;
     setGuesses(updatedGuesses);
     checkResult(updatedGuesses[guessNumber]);
-    console.log(results);
     setRemaining((remaining) => remaining - 1);
     if (remaining == 1 && gameStatus != GameStatus.Win) {
       setGameStatus(GameStatus.Loss);
@@ -67,26 +75,14 @@ function App({ answer = "" }) {
       <h2 hidden={gameStatus != GameStatus.Loss}>You lost. Refresh the page to play again</h2>
       <h4 hidden={gameStatus != GameStatus.During}>Info: "bingo" means the right color in the right spot. "almost" is the right color in the wrong spot.</h4>
       <div className="card">
-        <span>Colors available: R, G, B, Y, O, P</span>
+        <span>Colors available: R, G, B, Y, O, P </span>
+        <ColoredPeg color={"R"}/><ColoredPeg color={"G"}/><ColoredPeg color={"B"}/><ColoredPeg color={"Y"}/><ColoredPeg color={"O"}/>
+        <ColoredPeg color={"P"}/>
         <span>.   Remaining guesses: {remaining}</span>
       </div>
-      <div>
-        <span>{guesses[0]} | result: {results[0]}</span><br />
-        <span>{guesses[1]} | result: {results[1]}</span><br />
-        <span>{guesses[2]} | result: {results[2]}</span><br />
-        <span>{guesses[3]} | result: {results[3]}</span><br />
-        <span>{guesses[4]} | result: {results[4]}</span><br />
-        <span>{guesses[5]} | result: {results[5]}</span><br />
-        <span>{guesses[6]} | result: {results[6]}</span><br />
-        <span>{guesses[7]} | result: {results[7]}</span><br />
-        <span>{guesses[8]} | result: {results[8]}</span><br />
-        <span>{guesses[9]} | result: {results[9]}</span><br />
-      </div>
+      <GuessDisplay guesses={guesses} results={results} />
       <br />
-      <div className="UserInput">
-        <input type="text" minLength={4} maxLength={4} onChange={(e) => setNextGuess(e.target.value)}></input>
-        <button hidden={gameStatus != GameStatus.During} disabled={nextGuess.length < 4} onClick={(e) => handleClick(e)}>make my guess</button>
-      </div>
+      <UserInput gameStatus={gameStatus} nextGuess={nextGuess} nextGuessHandler={updateNextGuess} clickHandler={handleClick} />
     </>
   )
 }
