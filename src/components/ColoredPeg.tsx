@@ -1,18 +1,18 @@
 export function ColoredPeg({color=""}) {
     switch (color) {
         case "R":
-            return <span>🔴</span>;
+            return <>🔴</>;
         case "G":
-            return <span>🟢</span>;
+            return <>🟢</>;
         case "B":
-            return <span>🔵</span>;
+            return <>🔵</>;
         case "Y":
-            return <span>🟡</span>;
+            return <>🟡</>;
         case "O":
-            return <span>🟠</span>;
+            return <>🟠</>;
         case "P":
-            return <span>🟣</span>;
+            return <>🟣</>;
         default:
-            return <span>??</span>;
+            return <>??</>;
     }
 }

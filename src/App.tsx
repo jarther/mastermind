@@ -16,7 +16,6 @@ function App({ answer = "" }) {
   const maxGuesses = 10;
   const [remaining, setRemaining] = useState(maxGuesses);
   const [guesses, setGuesses] = useState(Array().fill(''));
-  const [nextGuess, setNextGuess] = useState(Array().fill('R'));
   const [gameStatus, setGameStatus] = useState("during");
   const [results, setResults] = useState(Array().fill(''));
 
@@ -48,14 +47,15 @@ function App({ answer = "" }) {
     }
   };
 
+  const [nextGuess, setNextGuess] = useState(Array().fill('R'));
   const updateNextGuess = (index: number, letter: string) => {
-        const updatedInProgressGuess = nextGuess.slice();
-        updatedInProgressGuess[index] = letter;
-        setNextGuess(updatedInProgressGuess);
-        console.log("Letter: " + letter + " index: " + index + " In progress guess:" + updatedInProgressGuess)
-    };
+    const updatedInProgressGuess = nextGuess.slice();
+    updatedInProgressGuess[index] = letter;
+    setNextGuess(updatedInProgressGuess);
+    console.log("Letter: " + letter + " index: " + index + " In progress guess:" + updatedInProgressGuess)
+  };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     const guessNumber = maxGuesses - remaining;
     const updatedGuesses = guesses.slice();
     const newGuess = "" + nextGuess[0] + nextGuess[1] + nextGuess[2] + nextGuess[3];
@@ -76,13 +76,13 @@ function App({ answer = "" }) {
       <h4 hidden={gameStatus != GameStatus.During}>Info: "bingo" means the right color in the right spot. "almost" is the right color in the wrong spot.</h4>
       <div className="card">
         <span>Colors available: R, G, B, Y, O, P </span>
-        <ColoredPeg color={"R"}/><ColoredPeg color={"G"}/><ColoredPeg color={"B"}/><ColoredPeg color={"Y"}/><ColoredPeg color={"O"}/>
-        <ColoredPeg color={"P"}/>
+        <ColoredPeg color={"R"} /><ColoredPeg color={"G"} /><ColoredPeg color={"B"} /><ColoredPeg color={"Y"} /><ColoredPeg color={"O"} />
+        <ColoredPeg color={"P"} />
         <span>.   Remaining guesses: {remaining}</span>
       </div>
       <GuessDisplay guesses={guesses} results={results} />
       <br />
-      <UserInput gameStatus={gameStatus} nextGuess={nextGuess} nextGuessHandler={updateNextGuess} clickHandler={handleClick} />
+      <UserInput gameStatus={gameStatus} clickHandler={handleClick} nextGuessHandler={updateNextGuess}/>
     </>
   )
 }
