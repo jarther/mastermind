@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import { GuessDisplay, translateToColors } from './components/GuessDisplay';
+import { GuessDisplay } from './components/GuessDisplay';
 import { UserInput } from './components/UserInput';
+import { translateToColors } from './utils';
 
 const GameStatus = {
   During: "during",
@@ -14,6 +15,7 @@ function App({ answer = "" }) {
   const maxGuesses = 10;
   const [remaining, setRemaining] = useState(maxGuesses);
   const [guesses, setGuesses] = useState(Array().fill(''));
+  const [nextGuess, setNextGuess] = useState(Array().fill('R'));
   const [gameStatus, setGameStatus] = useState("during");
   const [results, setResults] = useState(Array().fill(''));
 
@@ -45,7 +47,7 @@ function App({ answer = "" }) {
     }
   };
 
-  const [nextGuess, setNextGuess] = useState(Array().fill('R'));
+  
   const updateNextGuess = (index: number, letter: string) => {
     const updatedInProgressGuess = nextGuess.slice();
     updatedInProgressGuess[index] = letter;

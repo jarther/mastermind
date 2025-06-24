@@ -28,9 +28,6 @@ export interface UserInputProps {
     nextGuessHandler: any;
 }
 
-// the behavior I'd expect is either
-// (no state at all option) : empty selector is the default, on change it updates next guess, on submit it clears the selectors
-// (state here): on button click, it submits the state of the selectors together
 export function UserInput(props: UserInputProps) {
     const { clickHandler, nextGuessHandler } = props;
     

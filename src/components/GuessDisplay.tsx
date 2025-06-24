@@ -1,14 +1,4 @@
-export function translateToColors(guess: string) {
-    let translation = "";
-    if (guess && guess.length == 4) {
-        for (let i = 0; i < 4; i++) {
-            let nextLetter: string = guess.charAt(i);
-            let nextColor = letterToColor(nextLetter);
-            translation += nextColor;
-        }
-    }
-    return translation;
-}
+import { translateToColors } from "../utils";
 
 function BuildRow({ guess = "", result = "" }) {
     return (
@@ -19,25 +9,6 @@ function BuildRow({ guess = "", result = "" }) {
 export interface GuessDisplayProps {
     guesses: string[];
     results: string[];
-}
-
-function letterToColor(color: string) {
-    switch (color) {
-        case "R":
-            return "🔴";
-        case "G":
-            return "🟢";
-        case "B":
-            return "🔵";
-        case "Y":
-            return "🟡";
-        case "O":
-            return "🟠";
-        case "P":
-            return "🟣";
-        default:
-            return " ";
-    };
 }
 
 export function GuessDisplay(props: GuessDisplayProps) {
