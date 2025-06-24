@@ -5,8 +5,17 @@
   text-align: center;
 }
 
-.card {
-  padding: 2em;
-  display: flex;
-  align-items: column-reverse;
+td {
+  align-content: center;
+  border: 1px solid gray;
+  width: 400px;
+  height: 28px;
+}
+
+table {
+  border: 1px solid gray;
+  width: 400px;
+  height: 330px;
+  margin-left: auto;
+  margin-right: auto
 }

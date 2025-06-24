@@ -8,6 +8,7 @@ interface ColorSelectorProps {
 function ColorSelector(props: ColorSelectorProps) {
     const  {id, nextGuessHandler } = props;
     let myId = "colors" + id;
+    let boxSize = 7; // future: to display all the options, use `size={boxSize}` below
 
     return (
         <select name={myId} id={myId} onChange={(e) => nextGuessHandler(id, e.currentTarget.value)}>

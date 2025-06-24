@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import { GuessDisplay } from './components/GuessDisplay';
-import { ColoredPeg } from './components/ColoredPeg';
+import { GuessDisplay, translateToColors } from './components/GuessDisplay';
 import { UserInput } from './components/UserInput';
 
-//may want to move this into like a utils thing... 
 const GameStatus = {
   During: "during",
   Win: "win",
@@ -52,7 +50,6 @@ function App({ answer = "" }) {
     const updatedInProgressGuess = nextGuess.slice();
     updatedInProgressGuess[index] = letter;
     setNextGuess(updatedInProgressGuess);
-    console.log("Letter: " + letter + " index: " + index + " In progress guess:" + updatedInProgressGuess)
   };
 
   const handleClick = () => {
@@ -71,19 +68,18 @@ function App({ answer = "" }) {
   return (
     <>
       <h1>Mastermind</h1>
-      <h2 hidden={gameStatus != GameStatus.Win}>You won! Refresh the page to play again.</h2>
-      <h2 hidden={gameStatus != GameStatus.Loss}>You lost. Refresh the page to play again</h2>
-      <h4 hidden={gameStatus != GameStatus.During}>Info: "bingo" means the right color in the right spot. "almost" is the right color in the wrong spot.</h4>
-      <div className="card">
-        <span>Colors available: R, G, B, Y, O, P </span>
-        <ColoredPeg color={"R"} /><ColoredPeg color={"G"} /><ColoredPeg color={"B"} /><ColoredPeg color={"Y"} /><ColoredPeg color={"O"} />
-        <ColoredPeg color={"P"} />
-        <span>.   Remaining guesses: {remaining}</span>
+      <div className="message">
+        <h2 hidden={gameStatus != GameStatus.Win}>You won! Refresh the page to play again.</h2>
+        <h2 hidden={gameStatus != GameStatus.Loss}>You lost. The answer was {translateToColors(answer)} Refresh the page to play again.</h2>
+        <h4 hidden={gameStatus != GameStatus.During}>Info: "bingo" means the right color in the right spot. "almost" is the right color in the wrong spot.</h4>
+      </div>
+      <div className="guessCount">
+        <h3>Remaining guesses: {remaining}</h3>
       </div>
       <GuessDisplay guesses={guesses} results={results} />
       <br />
       <div hidden={gameStatus != "during"}>
-        <UserInput clickHandler={handleClick} nextGuessHandler={updateNextGuess}/>
+        <UserInput clickHandler={handleClick} nextGuessHandler={updateNextGuess} />
       </div>
     </>
   )
