@@ -23,7 +23,6 @@ function ColorSelector(props: ColorSelectorProps) {
 }
 
 export interface UserInputProps {
-    gameStatus: string;
     clickHandler: any;
     nextGuessHandler: any;
 }
@@ -32,7 +31,7 @@ export interface UserInputProps {
 // (no state at all option) : empty selector is the default, on change it updates next guess, on submit it clears the selectors
 // (state here): on button click, it submits the state of the selectors together
 export function UserInput(props: UserInputProps) {
-    const { gameStatus, clickHandler, nextGuessHandler } = props;
+    const { clickHandler, nextGuessHandler } = props;
     
     return (
         <div className="UserInput">
@@ -40,7 +39,7 @@ export function UserInput(props: UserInputProps) {
             <ColorSelector id={1} nextGuessHandler={nextGuessHandler}/>
             <ColorSelector id={2} nextGuessHandler={nextGuessHandler}/>
             <ColorSelector id={3} nextGuessHandler={nextGuessHandler}/>
-            <button hidden={gameStatus != "during"} onClick={(e) => clickHandler()}>make my guess</button>
+            <button onClick={(e) => clickHandler()}>make my guess</button>
         </div>
     );
 }

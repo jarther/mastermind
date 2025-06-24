@@ -82,7 +82,9 @@ function App({ answer = "" }) {
       </div>
       <GuessDisplay guesses={guesses} results={results} />
       <br />
-      <UserInput gameStatus={gameStatus} clickHandler={handleClick} nextGuessHandler={updateNextGuess}/>
+      <div hidden={gameStatus != "during"}>
+        <UserInput clickHandler={handleClick} nextGuessHandler={updateNextGuess}/>
+      </div>
     </>
   )
 }
