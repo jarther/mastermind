@@ -1,4 +1,6 @@
+//import { createElement, type JSXElementConstructor } from 'react';
 import { ColoredPeg } from './ColoredPeg';
+import { answerLength, range } from "../utils";
 
 interface ColorSelectorProps {
     id: any;
@@ -8,7 +10,7 @@ interface ColorSelectorProps {
 function ColorSelector(props: ColorSelectorProps) {
     const  {id, nextGuessHandler } = props;
     let myId = "colors" + id;
-    let boxSize = 7; // future: to display all the options, use `size={boxSize}` below
+    //let boxSize = 7; // future: to display all the options, use `size={boxSize}` below
 
     return (
         <select name={myId} id={myId} onChange={(e) => nextGuessHandler(id, e.currentTarget.value)}>
@@ -30,13 +32,9 @@ export interface UserInputProps {
 
 export function UserInput(props: UserInputProps) {
     const { clickHandler, nextGuessHandler } = props;
-    
     return (
         <div className="UserInput">
-            <ColorSelector id={0} nextGuessHandler={nextGuessHandler}/>
-            <ColorSelector id={1} nextGuessHandler={nextGuessHandler}/>
-            <ColorSelector id={2} nextGuessHandler={nextGuessHandler}/>
-            <ColorSelector id={3} nextGuessHandler={nextGuessHandler}/>
+            {range(answerLength).map((i) =><ColorSelector id={i} nextGuessHandler={nextGuessHandler}/>)}
             <button onClick={(e) => clickHandler()}>make my guess</button>
         </div>
     );
