@@ -10,7 +10,7 @@ function App({answer = ""}) {
   const [guesses, setGuesses] = useState(Array().fill(''));
   const [nextGuess, setNextGuess] = useState(Array().fill('R'));
   const [gameStatus, setGameStatus] = useState("during");
-  const [results, setResults] = useState(Array().fill(''));
+  const [results, setResults] = useState(Array().fill('', 0, maxGuesses - 1));
 
   const updateNextGuess = (index: number, letter: string) => {
     const updatedInProgressGuess = nextGuess.slice();
