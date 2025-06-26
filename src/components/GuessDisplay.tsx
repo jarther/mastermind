@@ -1,8 +1,9 @@
 import { maxGuesses, translateToColors, range } from "../utils";
 
 function BuildRow({ guess = "", result = "" }) {
+    let id = guess + result;
     return (
-        <tr key={guess}><td>{translateToColors(guess)}</td><td>{result}</td></tr>
+        <tr key={guess} id={id}><td key={guess}>{translateToColors(guess)}</td><td>{result}</td></tr>
     );
 }
 

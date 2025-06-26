@@ -4,8 +4,8 @@ import { GuessDisplay } from './components/GuessDisplay';
 import { UserInput } from './components/UserInput';
 import { translateToColors, GameStatus, answerLength, maxGuesses } from './utils';
 
-function App({ answer = "" }) {
-  console.log(answer)
+function App({answer = ""}) {
+  console.log(answer);
   const [remaining, setRemaining] = useState(maxGuesses);
   const [guesses, setGuesses] = useState(Array().fill(''));
   const [nextGuess, setNextGuess] = useState(Array().fill('R'));
@@ -23,7 +23,7 @@ function App({ answer = "" }) {
     setRemaining((remaining) => remaining - 1);
 
     const updatedGuesses = guesses.slice();
-    const newGuess = "" + nextGuess[0] + nextGuess[1] + nextGuess[2] + nextGuess[3];
+    const newGuess = nextGuess.join("");
     updatedGuesses[guessNumber] = newGuess;
     setGuesses(updatedGuesses);
 
@@ -35,7 +35,7 @@ function App({ answer = "" }) {
   };
 
   const checkResult = (guess: string) => {
-    if (guess == answer) {
+    if (guess === answer) {
       setGameStatus(GameStatus.Win);
     }
     let bingos = 0;
@@ -45,7 +45,7 @@ function App({ answer = "" }) {
     
     // check for exact matches
     for (let ind = 0; ind < answerLength; ind++) {
-      if (guessArray[ind] == answerArray[ind]) {
+      if (guessArray[ind] === answerArray[ind]) {
         bingos++;
         guessArray[ind] = " ";
         answerArray[ind] = "-";

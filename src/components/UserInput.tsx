@@ -1,6 +1,4 @@
-//import { createElement, type JSXElementConstructor } from 'react';
-import { ColoredPeg } from './ColoredPeg';
-import { answerLength, range } from "../utils";
+import { answerLength, ColorOptions, letterToColor, range } from "../utils";
 
 interface ColorSelectorProps {
     id: any;
@@ -11,16 +9,16 @@ function ColorSelector(props: ColorSelectorProps) {
     const  {id, nextGuessHandler } = props;
     let myId = "colors" + id;
     //let boxSize = 7; // future: to display all the options, use `size={boxSize}` below
-
+    //let colorOptions = 
     return (
         <select name={myId} id={myId} onChange={(e) => nextGuessHandler(id, e.currentTarget.value)}>
             <option></option>
-            <option value="R">🔴</option>
-            <option value="G">🟢</option>
-            <option value="B">🔵</option>
-            <option value="Y">🟡</option>
-            <option value="O">🟠</option>
-            <option value="P"><ColoredPeg color='P'/></option>
+            <option value={ColorOptions.red}>{letterToColor(ColorOptions.red)}</option>
+            <option value={ColorOptions.green}>{letterToColor(ColorOptions.green)}</option>
+            <option value={ColorOptions.blue}>{letterToColor(ColorOptions.blue)}</option>
+            <option value={ColorOptions.yellow}>{letterToColor(ColorOptions.yellow)}</option>
+            <option value={ColorOptions.orange}>{letterToColor(ColorOptions.orange)}</option>
+            <option value={ColorOptions.purple}>{letterToColor(ColorOptions.purple)}</option>
         </select>
     );
 }
